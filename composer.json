@@ -1,5 +1,5 @@
 {
-  "name": "iyngaran/send-grid-transport",
+  "name": "iyngaran/send-grid-transport-zf",
   "description": "SendGrid Transport for Zend Framework 3 to send emails using SendGrid - https://sendgrid.com/. ",
   "type": "library",
   "license": "MIT",
