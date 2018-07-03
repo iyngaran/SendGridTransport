@@ -1,0 +1,47 @@
+{
+  "name": "iyngaran/send-grid-transport",
+  "description": "SendGrid Transport for Zend Framework 3 to send emails using SendGrid - https://sendgrid.com/. ",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "SendGrid module",
+    "zf2",
+    "zf3"
+  ],
+  "authors": [
+    {
+      "name": "Iyathurai Iyngaran",
+      "email": "dev@iyngaran.info",
+      "homepage": "http://iyngaran.info/",
+      "role": "Developer"
+    }
+  ],
+  "require" : {
+    "php": ">=5.6",
+    "zendframework/zend-mvc": "^3.0.1",
+    "zendframework/zend-validator": "^2.10",
+    "zendframework/zend-mail": "^2.10",
+    "sendgrid/sendgrid": "^7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.4.*",
+    "mockery/mockery": "dev-master",
+    "codacy/coverage": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "SendGridTransport\\": [
+        "src/"
+      ]
+    },
+    "classmap": ["Module.php"]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SendGridTransport\\": [
+        "tests/"
+      ]
+    }
+  },
+  "minimum-stability": "dev"
+}

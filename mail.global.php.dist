@@ -1,0 +1,8 @@
+<?php
+return [
+    'mail' => [
+        'sendgrid' => [
+            'api_key' => 'YOUR_API_KEY',
+        ]
+    ]
+];
