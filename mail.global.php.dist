@@ -1,8 +1,31 @@
 <?php
+/**
+ * This is the configuration file for this module. Here, we must define
+ * the sendgrid API key, and also the from_email and to_email for testing this module
+ *
+ * PHP version 7.1
+ *
+ * @category  PHP
+ * @package   Iyngaran_SendGridTransport
+ * @author    Iyathurai Iyngaran <dev@iyngaran.info>
+ * @copyright 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-http/blob/master/LICENSE.md New BSD License
+ * @link      https://github.com/iyngaran/SendGridTransport
+ */
 return [
     'mail' => [
         'sendgrid' => [
             'api_key' => 'YOUR_API_KEY',
+        ]
+    ],
+    'test-email' => [
+        'from' => [
+            'name' => 'Iyngaran Iyathurai',
+            'email' => 'test@iyngaran.info'
+        ],
+        'to' => [
+            'name' => 'Your name',
+            'email' => 'your email address'
         ]
     ]
 ];
