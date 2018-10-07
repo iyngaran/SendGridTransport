@@ -19,22 +19,34 @@ use SendGridTransport\Mail\Transport\SendGridTransport;
 class SendEmailController extends AbstractActionController
 {
     private $sendGridTransport;
+    private $config;
 
-    public function __construct(SendGridTransport $sendGridTransport)
+    public function __construct(SendGridTransport $sendGridTransport, array $config)
     {
         $this->sendGridTransport = $sendGridTransport;
+        $this->config = $config;
     }
 
 
     public function indexAction()
     {
         $message = new \SendGridTransport\Mail\Message();
-        $body = '<strong>Hello...</strong>';
+        $body = '<strong>Hello :),</strong><BR/> The SendGridTransport is working now :)';
         $message->setBody($body);
-        $message->setFrom(new \Zend\Mail\Address('iyngaran@parkwaylabs.com', 'Demina Martine'));
-        $message->addTo(new \Zend\Mail\Address('iyngaran1155@gmail.com', 'Hello Iynga'));
-        $message->setSubject('TestSubject -- 7');
-        $message->setBodyText('Hello text');
+        $message->setFrom(
+            new \Zend\Mail\Address(
+                $this->config['test-email']['from']['email'],
+                $this->config['test-email']['from']['name']
+            )
+        );
+        $message->addTo(
+            new \Zend\Mail\Address(
+                $this->config['test-email']['to']['email'],
+                $this->config['test-email']['to']['name']
+            )
+        );
+        $message->setSubject('Testing SendGridTransport - Iyngaran');
+        $message->setBodyText('Hello, the SendGridTransport is working now :)');
         print('<pre>');
         print_r($this->sendGridTransport->send($message));
         print('<pre/>');
