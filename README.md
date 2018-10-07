@@ -1,6 +1,5 @@
 # SendGrid Transport Module for Zend Framework
 
-
 [![Latest Stable Version](https://poser.pugx.org/iyngaran/send-grid-transport/v/stable)](https://packagist.org/packages/iyngaran/send-grid-transport)
 [![Total Downloads](https://poser.pugx.org/iyngaran/send-grid-transport/downloads)](https://packagist.org/packages/iyngaran/send-grid-transport)
 [![Latest Unstable Version](https://poser.pugx.org/iyngaran/send-grid-transport/v/unstable)](https://packagist.org/packages/iyngaran/send-grid-transport)
@@ -9,9 +8,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b3aed2e68b4849e9bbb91d776089bd46)](https://www.codacy.com/app/andrecardosodev/send-grid-transport?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iyngaran/send-grid-transport&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/b3aed2e68b4849e9bbb91d776089bd46)](https://www.codacy.com/app/andrecardosodev/send-grid-transport?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iyngaran/send-grid-transport&amp;utm_campaign=Badge_Coverage)
 
-
 This module can be use as a transport to send transactional e-mail using SendGrid API in Zend Framework 2.
-
 
 ## INSTALLING
 
@@ -23,8 +20,8 @@ After install follow one of these steps:
 
 2) If this file does not exists in your application, just copy the entire file and place into your `config/autoload` removing the .dist extension.
 
-Then put your SendGrid API Key. To get your API Key, please visit https://sendgrid.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html
-
+Then put your SendGrid API Key. To get your API Key, please visit <https://sendgrid
+.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html>
 
 ```php
 // config/autoload/mail.global.php
@@ -125,8 +122,6 @@ class SomeControllerOrServiceOrHelper
 
 > Is strongly recommended to use the already registered service.
 
-
-
 ## CONTRIBUTING
 
 You can contribute with this module suggesting improvements, making tests and reporting bugs. Use [issues](https://github.com/iyngaran/send-grid-transport/issues) for that.
@@ -135,7 +130,6 @@ You can contribute with this module suggesting improvements, making tests and re
 ## LICENSE
 
 [MIT](https://github.com/iyngaran/send-grid-transport/blob/master/LICENSE)
-
 
 ## ERRORS 
 
