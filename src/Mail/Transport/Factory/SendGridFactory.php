@@ -21,7 +21,7 @@ use SendGrid\Mail\Mail;
 
 class SendGridFactory
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $_requestedName, array $options = null)
     {
         $config = $container->get('Config');
         $sendGrid = new SendGrid($config['mail']['sendgrid']['api_key']);

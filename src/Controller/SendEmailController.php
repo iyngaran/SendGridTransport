@@ -38,7 +38,6 @@ class SendEmailController extends AbstractActionController
         print('<pre>');
         print_r($this->sendGridTransport->send($message));
         print('<pre/>');
-        exit;
 
         return [];
     }

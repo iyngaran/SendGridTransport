@@ -1,86 +1,142 @@
-# Zend Framework Skeleton Module
+# SendGrid Transport Module for Zend Framework
 
-This is a sample skeleton module for use with
-[zend-mvc](https://docs.zendframework.com/zend-mvc) applications.
 
-## Installation
+[![Latest Stable Version](https://poser.pugx.org/iyngaran/send-grid-transport/v/stable)](https://packagist.org/packages/iyngaran/send-grid-transport)
+[![Total Downloads](https://poser.pugx.org/iyngaran/send-grid-transport/downloads)](https://packagist.org/packages/iyngaran/send-grid-transport)
+[![Latest Unstable Version](https://poser.pugx.org/iyngaran/send-grid-transport/v/unstable)](https://packagist.org/packages/iyngaran/send-grid-transport)
+[![License](https://poser.pugx.org/iyngaran/send-grid-transport/license)](https://packagist.org/packages/iyngaran/send-grid-transport)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d8897c5f55de469484a6762d4283cc77)](https://www.codacy.com/app/iyngaran/SendGridTransport?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iyngaran/SendGridTransport&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b3aed2e68b4849e9bbb91d776089bd46)](https://www.codacy.com/app/andrecardosodev/send-grid-transport?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iyngaran/send-grid-transport&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/b3aed2e68b4849e9bbb91d776089bd46)](https://www.codacy.com/app/andrecardosodev/send-grid-transport?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iyngaran/send-grid-transport&amp;utm_campaign=Badge_Coverage)
 
-First, decide on a namespace for your new module. For purposes of this README,
-we will use `MyNewModule`.
 
-Clone this repository into your application:
+This module can be use as a transport to send transactional e-mail using SendGrid API in Zend Framework 2.
 
-```bash
-$ cd module
-$ git clone https://github.com/zendframework/ZendSkeletonModule MyNewModule
-$ cd MyNewModule
+
+## INSTALLING
+
+`composer require iyngaran/send-grid-transport`
+
+After install follow one of these steps:
+
+1) Copy the contents file `vendor/iyngaran/send-grid-transport/mail.global.php.dist` and put it in your `config/autoload/mail.global.php`. 
+
+2) If this file does not exists in your application, just copy the entire file and place into your `config/autoload` removing the .dist extension.
+
+Then put your SendGrid API Key. To get your API Key, please visit https://sendgrid.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html
+
+
+```php
+// config/autoload/mail.global.php
+
+return array(
+    'mail' => array(
+        'sendgrid' => array(
+            'api_key' => 'YOUR_API_KEY',
+        )
+    )
+);
 ```
 
-If you wish to version the new module with your application, and not as a
-separate project, remove the various Git artifacts within it:
+After all, you must register `SendGridTransportModule` in your `config/application.config.php`.
 
-```bash
-$ rm -Rf .git .gitignore
+```php
+// config/application.config.php
+return [
+    'modules' => [
+        'YourPreviousModules',
+        'SendGridTransportModule'
+    ],
+    'module_listener_options' => [
+        'module_paths' => [
+            './module',
+            './vendor',
+        ],
+        'config_glob_paths' => [
+            'config/autoload/{{,*.}global,{,*.}local}.php',
+            'module/{*}/config/autoload/{{,*.}global,{,*.}local}.php',
+        ],
+    ]
+];
 ```
 
-If you want to version it separately, remove the origin remote so you can
-specify a new one later:
+## USAGE
 
-```bash
-$ git remote remove origin
+### Via Service
+
+By default, when the **SendGridTransportModule** is loaded a service is registered and ready to use.
+
+```php
+// In a Controller
+$sendGridTransport = $this->getServiceLocator()->get('SendGridTransport');
 ```
 
-The next step will be to change the namespace in the various files. Open each
-of `config/module.config.php`, `src/Module.php`, and
-`src/Controller/SkeletonController.php`, and replace any occurence of
-`ZendSkeletonModule` with your new namespace.
+#### Full example with service
 
-> ### find and sed
->
-> You can also do this  with the Unix utilties `find` and `sed`:
->
-> ```bash
-> $ for php in $(find . -name '*.php');do
-> > sed --in-place -e 's/ZendSkeletonModule/MyNewModule/g' $php
-> > done
-> ```
+```php
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Zend\Mail;
 
-Next, we need to setup autoloading in your application. Open the `composer.json`
-file in your application root, and add an entry under the `autoload.psr-4` key:
+class SomeController extends AbstractActionController
+{
+    public function someAction()
+    {
+        $mail = new Mail\Message();
+        $mail->setBody('This is the text of the email.');
+        $mail->setFrom(new Mail\Address('test@example.org', 'Sender\'s name'));
+        $mail->addTo(new Mail\Address('some@address.com', 'User Name'));
+        $mail->setSubject('TestSubject');
 
-```json
-"autoload": {
-    "psr-4": {
-        "MyNewModule\\": "module/MyNewModule/src/"
+        $sendGridTransport = $this->getServiceLocator()->get('SendGridTransport');
+        $sendGridTransport->send($mail);
+
+        return new ViewModel();
     }
 }
 ```
 
-When done adding the entry:
+### Directly
 
-```bash
-$ composer dump-autoload
-```
-
-Finally, notify your application of the module. Open
-`config/modules.config.php`, and add it to the bottom of the list:
+If you need more control, you can use the library anywhere you want.
 
 ```php
-return [
-    /* ... */
-    'MyNewModule',
-]
+use SendGrid;
+use SendGridTransportModule\SendGridTransport;
+
+class SomeControllerOrServiceOrHelper 
+{
+    public function someMethod()
+    {
+        $mail = new Mail\Message();
+        $mail->setBody('This is the text of the email.');
+        $mail->setFrom(new Mail\Address('test@example.org', 'Sender\'s name'));
+        $mail->addTo(new Mail\Address('some@address.com', 'User Name'));
+        $mail->setSubject('TestSubject');
+
+        $sendGrid = new SendGrid('YOUR_API_KEY');
+        $sendGridEmail = new SendGrid\Email();
+        $sendGridTransport = new SendGridTransport($sendGrid, $sendGridEmail);
+
+        $sendGridTransport->send($mail);
+    }
+}
 ```
 
-> ### application.config.php
->
-> If you are using an older version of the skeleton application, you may not
-> have a `modules.config.php` file. If that is the case, open `config/application.config.php`
-> instead, and add your module under the `modules` key:
->
-> ```php
-> 'modules' => [
->     /* ... */
->     'MyNewModule',
-> ],
-> ```
+> Is strongly recommended to use the already registered service.
+
+
+
+## CONTRIBUTING
+
+You can contribute with this module suggesting improvements, making tests and reporting bugs. Use [issues](https://github.com/iyngaran/send-grid-transport/issues) for that.
+
+
+## LICENSE
+
+[MIT](https://github.com/iyngaran/send-grid-transport/blob/master/LICENSE)
+
+
+## ERRORS 
+
+Report errors opening [Issues](https://github.com/iyngaran/send-grid-transport/issues).
