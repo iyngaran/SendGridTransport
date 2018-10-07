@@ -1,5 +1,7 @@
 # Zend Framework Skeleton Module
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f91764980c8c4e6a84e4cef041a7c822)](https://app.codacy.com/app/iyngaran/SendGridTransport?utm_source=github.com&utm_medium=referral&utm_content=iyngaran/SendGridTransport&utm_campaign=Badge_Grade_Dashboard)
+
 This is a sample skeleton module for use with
 [zend-mvc](https://docs.zendframework.com/zend-mvc) applications.
 
