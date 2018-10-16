@@ -18,8 +18,8 @@ After install follow one of these steps:
 
 2) If this file does not exists in your application, just copy the entire file and place into your `config/autoload` removing the .dist extension.
 
-Then add your SendGrid API Key. To get your API Key, please visit (https://sendgrid
-.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html)
+Then add your SendGrid API Key. To get your API Key, please visit <https://sendgrid
+.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html>
 
 And also add the test email from-email address, name and to-email address, name.
 
@@ -64,7 +64,7 @@ Go to this Url - /send-grid-email to send a test email.
 
 ## USAGE
 
-#### Example in a controller
+### Example in a controller
 
 ```php
 namespace SendGridTransport\Controller;
@@ -117,7 +117,6 @@ class SendEmailController extends AbstractActionController
 ## CONTRIBUTING
 
 You can contribute with this module suggesting improvements, making tests and reporting bugs. Use [issues](https://github.com/iyngaran/send-grid-transport/issues) for that.
-
 
 ## ERRORS 
 

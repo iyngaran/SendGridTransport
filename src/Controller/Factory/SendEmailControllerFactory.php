@@ -19,7 +19,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 class SendEmailControllerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $_requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, array $options = null)
     {
         $config = $container->get("Config");
         return new SendEmailController(
